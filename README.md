@@ -91,7 +91,7 @@ Groq LLM Response
 
 ```bash
 git clone https://github.com/sarv-tech/Intelligent-Document-Retrieval-System.git
-cd notebot-ai
+cd Intelligent-Document-Retrieval-System
 ```
 
 ---
