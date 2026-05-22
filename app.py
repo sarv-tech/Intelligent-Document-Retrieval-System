@@ -6,7 +6,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_groq import ChatGroq
 
 
-GROQ_API_KEY = "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"
+GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
 
 st.set_page_config(
     page_title="NoteBot",
