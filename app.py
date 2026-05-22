@@ -2,9 +2,11 @@ import streamlit as st
 from PyPDF2 import PdfReader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
-from langchain_ollama import OllamaEmbeddings
-from langchain_ollama import ChatOllama
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_groq import ChatGroq
 
+
+GROQ_API_KEY = "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"
 
 st.set_page_config(
     page_title="NoteBot",
@@ -68,6 +70,7 @@ if files:
 
 # SHOW EXTRACTED TEXT
 if all_text:
+
     st.subheader("📄 Extracted Text")
 
     with st.expander("View Text"):
@@ -91,16 +94,15 @@ if all_text:
 
     # Show chunks
     for i, chunk in enumerate(chunks):
+
         with st.expander(f"Chunk {i + 1}"):
             st.write(chunk)
 
     with st.spinner("Creating Embeddings..."):
 
-        # Create Ollama embeddings
-        embeddings = OllamaEmbeddings(
-
-            # Recommended embedding model
-            model="nomic-embed-text"
+        # HuggingFace Embeddings
+        embeddings = HuggingFaceEmbeddings(
+            model_name="sentence-transformers/all-MiniLM-L6-v2"
         )
 
         # Store vectors inside FAISS
@@ -111,23 +113,23 @@ if all_text:
 
     st.success("✅ Vector Store Created Successfully")
 
-    # get user query
+    # Get user query
     user_query = st.chat_input(
         "Ask question from your notes..."
     )
 
-    # semantic search from vector store
+    # Semantic search from vector store
     if user_query:
-        matching_chunks = vector_store.similarity_search(user_query, k=2)
 
-        # define our LLM
-        llm = ChatOllama(
+        matching_chunks = vector_store.similarity_search(
+            user_query,
+            k=2
+        )
 
-            # Ollama model name
-            model="phi3:mini",
-            num_ctx=768,
-
-            # Controls randomness
+        # Groq LLM
+        llm = ChatGroq(
+            groq_api_key=GROQ_API_KEY,
+            model="llama-3.1-8b-instant",
             temperature=0.1
         )
 
@@ -151,8 +153,6 @@ if all_text:
         - Break complex topics into step-by-step explanations when needed.
         - Keep responses concise, structured, and easy to understand.
         - Maintain a professional, supportive, and educational tone.
-        - If the context is not sufficient to answer the question, respond exactly:
-          "I don't know Sarvesh Pingale. The information is not available in the provided notes."
 
         CONTEXT:
         {context[:1500]}
