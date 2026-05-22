@@ -90,7 +90,7 @@ Groq LLM Response
 ## Clone Repository
 
 ```bash
-git clone https://github.com/your-username/notebot-ai.git
+git clone https://github.com/sarv-tech/Intelligent-Document-Retrieval-System.git
 cd notebot-ai
 ```
 
@@ -240,6 +240,7 @@ Custom prompt engineering enables structured, beginner-friendly educational resp
 # 👨‍💻 Author
 
 ### Sarvesh Pingale
+https://www.linkedin.com/in/sarvesh-pingale-8b9090299
 
 ---
 
