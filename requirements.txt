@@ -5,5 +5,4 @@ langchain-community
 langchain-text-splitters
 faiss-cpu
 langchain-groq
-langchain-huggingface
-sentence-transformers
+fastembed

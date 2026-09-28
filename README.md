@@ -54,9 +54,9 @@ The system combines vector embeddings, semantic retrieval, and Groq-powered LLM 
 | --------------- | --------------------------------- |
 | Frontend        | Streamlit                         |
 | AI Framework    | LangChain                         |
-| Embeddings      | HuggingFace Sentence Transformers |
+| Embeddings      | FastEmbed (Lightweight & Fast)    |
 | Vector Database | FAISS                             |
-| LLM             | Groq Llama 3.1                    |
+| LLM             | Groq API (GPT OSS / Llama)        |
 | NLP             | Semantic Search · RAG             |
 | PDF Processing  | PyPDF2                            |
 | Deployment      | Streamlit Community Cloud         |
@@ -132,8 +132,7 @@ langchain-community
 langchain-text-splitters
 faiss-cpu
 langchain-groq
-langchain-huggingface
-sentence-transformers
+fastembed
 ```
 
 ---
@@ -184,11 +183,11 @@ streamlit run app.py
 
 ### 🔍 Semantic Search
 
-Uses HuggingFace embeddings with FAISS vector storage for intelligent document retrieval.
+Uses lightweight FastEmbed embeddings with FAISS vector storage for fast, efficient, and intelligent document retrieval without heavy PyTorch dependencies.
 
 ### ⚡ Fast AI Responses
 
-Integrated Groq’s ultra-fast Llama 3.1 inference engine for low-latency question answering.
+Integrated Groq's ultra-fast inference engine for low-latency question answering using the latest supported Open-Source models.
 
 ### 🧠 Retrieval-Augmented Generation (RAG)
 

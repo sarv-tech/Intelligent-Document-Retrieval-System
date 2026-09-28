@@ -1,8 +1,11 @@
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "packages"))
+
 import streamlit as st
 from PyPDF2 import PdfReader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
-from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_groq import ChatGroq
 
 
@@ -100,9 +103,11 @@ if all_text:
 
     with st.spinner("Creating Embeddings..."):
 
-        # HuggingFace Embeddings
-        embeddings = HuggingFaceEmbeddings(
-            model_name="sentence-transformers/all-MiniLM-L6-v2"
+        # FastEmbed Embeddings (much lighter than sentence-transformers)
+        from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
+        embeddings = FastEmbedEmbeddings(
+            model_name="BAAI/bge-small-en-v1.5",
+            cache_dir=os.path.join(os.path.dirname(__file__), "model_cache")
         )
 
         # Store vectors inside FAISS
@@ -126,10 +131,9 @@ if all_text:
             k=2
         )
 
-        # Groq LLM
         llm = ChatGroq(
             groq_api_key=GROQ_API_KEY,
-            model="llama-3.1-8b-instant",
+            model="openai/gpt-oss-20b",
             temperature=0.1
         )
 
